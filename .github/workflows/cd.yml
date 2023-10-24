@@ -15,7 +15,7 @@ jobs:
             core.setFailed("Can't deploy to production from branch other than master or prodfixes!")
       - id: create-maintanance-branch
         if: ${{ github.ref == 'refs/heads/main' }}
-        uses: peterjgrainger/action-create-branch@v2.2.0
+        uses: peterjgrainger/action-create-branch@v2.4.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
