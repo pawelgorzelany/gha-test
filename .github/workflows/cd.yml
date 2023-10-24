@@ -20,6 +20,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: prodfixes
+      - if: ${{ steps.create-maintance-branch.outputs.created }}
+        run: echo "created prodfixes"
       - if: ${{ github.ref == 'refs/heads/main' && (! steps.create-maintanance-branch.outputs.created) }}
         uses: actions/github-script@v6
         with:
@@ -27,7 +29,7 @@ jobs:
             core.setFailed("Can't deploy from main while there is an active maintance branch!")
 
   deploy:
-    runs-on: ubuntu-latest\
+    runs-on: ubuntu-latest
     steps:
       - run: echo "deploying..."
         
