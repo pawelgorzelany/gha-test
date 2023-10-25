@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  make-branch-checks:
+  pre-deploy:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ github.ref }}
@@ -21,10 +21,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: prodfixes
-      - run: echo ${{ steps.create-maintanance-branch.outputs.created == 'false' }}
-      - run: echo ${{ steps.create-maintanance-branch.outputs.created != 'false' }}
-      - if: ${{ steps.create-maintanance-branch.outputs.created == 'false' }}
-        run: echo "prodfixes exists"
       - if: ${{ github.ref == 'refs/heads/main' && steps.create-maintanance-branch.outputs.created == 'false' }}
         uses: actions/github-script@v6
         with:
@@ -33,6 +29,19 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    needs: 
+      - pre-deploy
     steps:
       - run: echo "deploying..."
-        
+
+  post-deploy:
+    needs:
+      - deploy
+    name: 'Tag prod release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: hole19/git-tag-action@v1.0
+        env:
+          TAG: production
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
