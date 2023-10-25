@@ -23,9 +23,9 @@ jobs:
           branch: prodfixes
       - run: echo ${{ steps.create-maintanance-branch.outputs.created == 'false' }}
       - run: echo ${{ steps.create-maintanance-branch.outputs.created != 'false' }}
-      - if: ${{ ! steps.create-maintanance-branch.outputs.created }}
+      - if: ${{ steps.create-maintanance-branch.outputs.created == 'false' }}
         run: echo "prodfixes exists"
-      - if: ${{ github.ref == 'refs/heads/main' && (! steps.create-maintanance-branch.outputs.created) }}
+      - if: ${{ github.ref == 'refs/heads/main' && steps.create-maintanance-branch.outputs.created == 'false' }}
         uses: actions/github-script@v6
         with:
           script: |
