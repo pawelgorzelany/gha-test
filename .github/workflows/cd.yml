@@ -40,9 +40,6 @@ jobs:
     name: 'Tag prod release'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-tags: true
       - uses: endaft/action-dev-tagger@v1.0.8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
