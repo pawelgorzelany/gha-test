@@ -22,6 +22,7 @@ jobs:
         with:
           branch: prodfixes
       - run: echo ${{ steps.create-maintanance-branch.outputs.created }}
+      - run: echo ${{ ! steps.create-maintanance-branch.outputs.created }}
       - if: ${{ ! steps.create-maintanance-branch.outputs.created }}
         run: echo "prodfixes exists"
       - if: ${{ github.ref == 'refs/heads/main' && (! steps.create-maintanance-branch.outputs.created) }}
