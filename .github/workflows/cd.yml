@@ -40,6 +40,9 @@ jobs:
     name: 'Tag prod release'
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-tags: true
       - uses: hole19/git-tag-action@v1.0
         env:
           TAG: production
