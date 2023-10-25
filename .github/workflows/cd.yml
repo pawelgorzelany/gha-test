@@ -21,8 +21,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: prodfixes
-      - run: echo ${{ steps.create-maintanance-branch.outputs.created }}
-      - run: echo ${{ ! steps.create-maintanance-branch.outputs.created }}
+      - run: echo ${{ steps.create-maintanance-branch.outputs.created == 'false' }}
+      - run: echo ${{ steps.create-maintanance-branch.outputs.created != 'false' }}
       - if: ${{ ! steps.create-maintanance-branch.outputs.created }}
         run: echo "prodfixes exists"
       - if: ${{ github.ref == 'refs/heads/main' && (! steps.create-maintanance-branch.outputs.created) }}
