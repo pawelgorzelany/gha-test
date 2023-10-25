@@ -43,7 +43,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-tags: true
-      - uses: mathieudutour/github-tag-action@v6
+      - uses: mathieudutour/github-tag-action@v6.1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           custom_tag: production
