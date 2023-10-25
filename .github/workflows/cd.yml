@@ -43,8 +43,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-tags: true
-      - uses: mathieudutour/github-tag-action@v6.1
+      - uses: endaft/action-dev-tagger@v1.0.8
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          custom_tag: production
-          tag_prefix: ""
+          token: ${{ secrets.GITHUB_TOKEN }}
+          prefix: production
+          tag: production
