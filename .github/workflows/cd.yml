@@ -40,14 +40,23 @@ jobs:
     name: 'Tag prod release'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: 'Checkout with tags'
+        uses: actions/checkout@v4
         with:
           fetch-tags: true
-      - uses: endaft/action-dev-tagger@v1.0.8
+      - name: 'Tag current production release'
+        uses: endaft/action-dev-tagger@v1.0.8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           prefix: production
           tag: production
-      - id: get-latest-version
+      - name: 'Get latest semantic version'
+        id: get-latest-version
         run: echo "version=$(git tag -l --sort=version:refname 'v*' | head | grep . || echo 'v1.0.0' | sed 's/v//')" >> $GITHUB_OUTPUT
-      - run: echo ${{ steps.get-latest-version.outputs.version }}
+      - name: 'Calculate next semantic version'
+        id: calculate-next-version
+        uses: christian-draeger/increment-semantic-version@1.1.0
+        with:
+          current-version: ${{ steps.get-latest-version.outputs.version }}
+          version-fragment: 'feature'
+      - run: echo "v${{ steps.calculate-next-version.outputs.next-version }}"
