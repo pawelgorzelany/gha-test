@@ -49,5 +49,5 @@ jobs:
           prefix: production
           tag: production
       - id: get-latest-version
-        run: echo "version=$(git tag -l --sort=version:refname 'v*' | head | grep . || echo 'v1.0.0' | sed 's/v//')\n" >> $GITHUB_OUTPUT
+        run: echo "version=$(git tag -l --sort=version:refname 'v*' | head | grep . || echo 'v1.0.0' | sed 's/v//')" >> $GITHUB_OUTPUT
       - run: echo ${{ steps.get-latest-version.outputs.version }}
