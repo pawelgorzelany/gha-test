@@ -52,7 +52,7 @@ jobs:
           tag: production
       - name: 'Get latest semantic version'
         id: get-latest-version
-        run: echo "version=$(git tag -l --sort=-version:refname 'v*' | head | grep . || echo 'v1.0.0' | sed 's/v//')" >> $GITHUB_OUTPUT
+        run: echo "version=$(git tag -l --sort=-version:refname 'v*' | head -n 1 | grep . || echo 'v1.0.0' | sed 's/v//')" >> $GITHUB_OUTPUT
       - name: 'Calculate next semantic version from ${{ steps.get-latest-version.outputs.version }}'
         id: calculate-next-version
         uses: christian-draeger/increment-semantic-version@1.1.0
