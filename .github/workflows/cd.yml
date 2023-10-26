@@ -58,5 +58,5 @@ jobs:
         uses: christian-draeger/increment-semantic-version@1.1.0
         with:
           current-version: ${{ steps.get-latest-version.outputs.version }}
-          version-fragment: ${{ github.ref == 'refs/heads/master' && 'feature' || 'bug' }}
+          version-fragment: ${{ github.ref == 'refs/heads/main' && 'feature' || 'bug' }}
       - run: echo "v${{ steps.calculate-next-version.outputs.next-version }}"
