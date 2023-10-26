@@ -52,7 +52,7 @@ jobs:
           tag: production
       - name: 'Get latest semantic version'
         id: get-latest-version
-        run: echo "version=$(git tag -l --sort=version:refname 'v*' | head | grep . || echo 'v1.0.0' | sed 's/v//')" >> $GITHUB_OUTPUT
+        run: echo "version=$(git tag -l --sort=-version:refname 'v*' | head | grep . || echo 'v1.0.0' | sed 's/v//')" >> $GITHUB_OUTPUT
       - name: 'Calculate next semantic version'
         id: calculate-next-version
         uses: christian-draeger/increment-semantic-version@1.1.0
@@ -66,6 +66,6 @@ jobs:
             github.rest.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/${{ steps.calculate-next-version.outputs.next-version }}",
+              ref: "refs/tags/v${{ steps.calculate-next-version.outputs.next-version }}",
               sha: context.sha,
             })
