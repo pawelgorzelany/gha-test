@@ -43,7 +43,7 @@ jobs:
       - name: 'Checkout with tags'
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-tags: true
       - name: 'Tag current production release'
         uses: endaft/action-dev-tagger@v1.0.8
         with:
